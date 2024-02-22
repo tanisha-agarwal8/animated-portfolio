@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import "./contact.scss";
 import { motion, useInView } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const variants = {
   initial: {
@@ -31,10 +33,10 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        "service_94y20xo",
-        "template_v10u2oh",
+        "service_x79pndc",
+        "template_1qy4ynh",
         formRef.current,
-        "pX_2hasGmGcuvjXIW"
+        "egO_plQXkAf7tbuDD"
       )
       .then(
         (result) => {
@@ -44,6 +46,14 @@ const Contact = () => {
           setError(true);
         }
       );
+  };
+
+  const notify = () => {
+    if (success===true) {
+      toast.success('Email sent!');
+    } else if(error===true) {
+      toast.error('Error!');
+    }
   };
 
   return (
@@ -58,15 +68,15 @@ const Contact = () => {
         <motion.h1 variants={variants}>Let’s work together</motion.h1>
         <motion.div className="item" variants={variants}>
           <h2>Mail</h2>
-          <span>hello@react.dev</span>
+          <span>Tanisha.agarwall880@gmail.com</span>
         </motion.div>
         <motion.div className="item" variants={variants}>
           <h2>Address</h2>
-          <span>Hello street New York</span>
+          <span>Bazar Chowk,Angul</span>
         </motion.div>
         <motion.div className="item" variants={variants}>
           <h2>Phone</h2>
-          <span>+1 234 5678</span>
+          <span>8260719462</span>
         </motion.div>
       </motion.div>
       <div className="formContainer">
@@ -109,11 +119,12 @@ const Contact = () => {
           <input type="text" required placeholder="Name" name="name"/>
           <input type="email" required placeholder="Email" name="email"/>
           <textarea rows={8} placeholder="Message" name="message"/>
-          <button>Submit</button>
-          {error && "Error"}
-          {success && "Success"}
+          <button onClick={notify}>Submit</button>
+          {/* {error && "Error"}
+          {success && "Success"} */}
         </motion.form>
       </div>
+      <ToastContainer/>
     </motion.div>
   );
 };
